@@ -14,3 +14,7 @@ Usage in you Podfile:
 ```
 pod 'GXCategories'
 ```
+
+License
+--
+MIT
