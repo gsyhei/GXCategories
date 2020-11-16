@@ -13,9 +13,12 @@ public extension UIColor {
     convenience init(hexString: String) {
         let hexString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
         let scanner   = Scanner(string: hexString)
-        
         if hexString.hasPrefix("#") {
-            scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
+            if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+                scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
+            } else {
+                scanner.scanLocation = 1
+            }
         }
         var color: UInt64 = 0
         if scanner.scanHexInt64(&color) {
@@ -54,29 +57,19 @@ public extension UIColor {
     
     class func hexWithAlpha(hexString: String, alpha:CGFloat) -> UIColor {
         var cString: String = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
-        if cString.count < 6 { return UIColor.black }
+        let rgbLength: Int = 6
+        if cString.count < rgbLength { return UIColor.black }
         
-        let index = cString.index(cString.endIndex, offsetBy: -6)
+        let index = cString.index(cString.endIndex, offsetBy: -rgbLength)
         let subString = cString[index...]
         if cString.hasPrefix("0X") { cString = String(subString) }
         if cString.hasPrefix("#") { cString = String(subString) }
-        
         if cString.count != 6 { return UIColor.black }
-        
-        var range: NSRange = NSMakeRange(0, 2)
-        let rString = (cString as NSString).substring(with: range)
-        range.location = 2
-        let gString = (cString as NSString).substring(with: range)
-        range.location = 4
-        let bString = (cString as NSString).substring(with: range)
-        
-        var r: UInt64 = 0x0
-        var g: UInt64 = 0x0
-        var b: UInt64 = 0x0
-        
-        Scanner(string: rString).scanHexInt64(&r)
-        Scanner(string: gString).scanHexInt64(&g)
-        Scanner(string: bString).scanHexInt64(&b)
+ 
+        var r: UInt64 = 0x0, g: UInt64 = 0x0, b: UInt64 = 0x0
+        Scanner(string: cString[0,2]).scanHexInt64(&r)
+        Scanner(string: cString[2,2]).scanHexInt64(&g)
+        Scanner(string: cString[4,2]).scanHexInt64(&b)
         
         return UIColor(r: UInt32(r), g: UInt32(g), b: UInt32(b), a: alpha)
     }
