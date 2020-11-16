@@ -91,7 +91,7 @@ public extension UIDevice {
                 }
             }
         }
-        return 0
+        return -1
     }
     
     var diskSpaceFree: Int64 {
@@ -102,15 +102,15 @@ public extension UIDevice {
                 }
             }
         }
-        return 0
+        return -1
     }
     
     var diskSpaceUsed: Int64 {
         let total = self.diskSpace
         let free = self.diskSpaceFree
-        guard total > 0 && free > 0 else { return 0 }
+        guard total > 0 && free > 0 else { return -1 }
         let used = total - free
-        guard used > 0 else { return 0 }
+        guard used > 0 else { return -1 }
         
         return used
     }
