@@ -10,10 +10,50 @@ import UIKit
 
 public extension UITableView {
     
-    func updateWithBlock(_ block: (UITableView)->Void) {
-        self.beginUpdates()
-        block(self)
-        self.endUpdates()
+    /// 配置tableView
+    /// - Parameters:
+    ///   - estimated: 是否开启估算
+    ///   - mode: 键盘隐藏模式
+    ///   - separatorLeft: 分割线是否居左
+    ///   - footerZero: 页脚设置（去掉多余分割线）
+    func configuration(estimated: Bool = false, mode: UIScrollView.KeyboardDismissMode = .onDrag, separatorLeft: Bool = true, footerZero: Bool = true) {
+        if !estimated {
+            self.estimatedRowHeight = 0
+            self.estimatedSectionHeaderHeight = 0
+            self.estimatedSectionFooterHeight = 0
+        }
+        self.keyboardDismissMode = mode
+        if separatorLeft {
+            if #available(iOS 7.0, *) {
+                self.separatorInset = .zero
+            }
+            if #available(iOS 8.0, *) {
+                self.layoutMargins = .zero
+            }
+        }
+        if footerZero {
+            self.tableFooterView = UIView()
+        }
+    }
+    
+    /// 批量更新
+    /// - Parameters:
+    ///   - block: 内容处理block
+    ///   - completion: 完成回调
+    func updateWithBlock(_ block: (UITableView?)->Void, completion: ((Bool) -> Void)? = nil) {
+        if #available(iOS 11.0, *) {
+            self.performBatchUpdates {[weak self] in
+                block(self)
+            } completion: { (finished) in
+                completion?(finished)
+            }
+        }
+        else {
+            self.beginUpdates()
+            block(self)
+            self.endUpdates()
+            completion?(true)
+        }
     }
 
     func scrollToRow(row: Int, section: Int, scrollPosition: UITableView.ScrollPosition, animated: Bool) {

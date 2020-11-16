@@ -47,12 +47,6 @@ public extension UIColor {
                   blue: CGFloat(b) / 255.0,
                   alpha: a)
     }
-
-    class var random: UIColor {
-        return UIColor(r: arc4random_uniform(256),
-                       g: arc4random_uniform(256),
-                       b: arc4random_uniform(256))
-    }
     
     class func hex(hexString: String) -> UIColor {
         return self.hexWithAlpha(hexString: hexString, alpha: 1.0)
@@ -85,6 +79,12 @@ public extension UIColor {
         Scanner(string: bString).scanHexInt64(&b)
         
         return UIColor(r: UInt32(r), g: UInt32(g), b: UInt32(b), a: alpha)
+    }
+    
+    class var random: UIColor {
+        return UIColor(r: arc4random_uniform(256),
+                       g: arc4random_uniform(256),
+                       b: arc4random_uniform(256))
     }
     
 }

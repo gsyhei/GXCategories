@@ -45,7 +45,7 @@ public extension Dictionary {
         }
     }
     
-    func sortedKeys(isOrderedBefore:(Key,Key) -> Bool) -> [Key] {
+    func sortedKeys(isOrderedBefore:(Key, Key) -> Bool) -> [Key] {
         return Array(self.keys).sorted(by: isOrderedBefore)
     }
     
@@ -55,7 +55,7 @@ public extension Dictionary {
         }
     }
     
-    func sortedValuesByKeys(isOrderedBefore:(Key,Key) -> Bool) -> [Value] {
+    func sortedValuesByKeys(isOrderedBefore:(Key, Key) -> Bool) -> [Value] {
         let sortedKeys = self.sortedKeys(isOrderedBefore: isOrderedBefore)
         var array: [Value] = []
         for key in sortedKeys {

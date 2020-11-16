@@ -9,73 +9,6 @@
 import UIKit
 
 public extension UIImage {
-    /// 梯度风格枚举
-    enum GXGradientStyle {
-        /// 水平
-        case horizontal
-        /// 垂直
-        case vertical
-        /// 倾斜向上
-        case obliqueUp
-        /// 倾斜向下
-        case obliqueDown
-    }
-    /// 缩放类型
-    enum GXImageScaleMode: Int {
-        case clip       = 0
-        case aspectFit  = 1
-        case aspectFill = 2
-    }
-    private func gx_fitWithContentMode(rect: CGRect, mode: GXImageScaleMode) -> CGRect {
-        let widthFactor = rect.size.width / self.size.width
-        let heightFactor = rect.size.height / self.size.height
-        switch (mode) {
-        case .clip:
-            let scaleFactor = max(widthFactor, heightFactor)
-            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
-            var left: CGFloat = 0.0, top: CGFloat = 0.0
-            if (widthFactor > heightFactor) {
-                top = rect.origin.y + (rect.size.height - drawSize.height) * 0.5
-            }
-            else if (widthFactor < heightFactor) {
-                left = rect.origin.x + (rect.size.width - drawSize.width) * 0.5
-            }
-            return CGRect(origin: CGPoint(x: left, y: top), size: drawSize)
-        case .aspectFill:
-            let scaleFactor = max(widthFactor, heightFactor)
-            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
-            return CGRect(origin: rect.origin, size: drawSize)
-        case .aspectFit:
-            let scaleFactor = min(widthFactor, heightFactor)
-            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
-            var left: CGFloat = 0.0, top: CGFloat = 0.0
-            if (widthFactor > heightFactor) {
-                left = rect.origin.x + (rect.size.width - drawSize.width) * 0.5;
-            }
-            else if (widthFactor < heightFactor) {
-                top = rect.origin.y + (rect.size.height - drawSize.height) * 0.5;
-            }
-            return CGRect(origin: CGPoint(x: left, y: top), size: drawSize)
-        }
-    }
-    func gx_draw(in rect: CGRect, mode: GXImageScaleMode, clipsToBounds: Bool) {
-        let drawRect = self.gx_fitWithContentMode(rect: rect, mode: mode)
-        guard drawRect.size.width > 0 && drawRect.size.height > 0 else { return }
-        if clipsToBounds {
-            guard let context = UIGraphicsGetCurrentContext() else { return }
-            context.saveGState()
-            context.addRect(rect)
-            context.clip()
-            self.draw(in: rect)
-            context.restoreGState()
-        }
-        else {
-            self.draw(in: rect)
-        }
-    }
-}
-
-public extension UIImage {
     
     /// 构建单色图片
     /// - Parameters:
@@ -144,7 +77,9 @@ public extension UIImage {
         self.init(gradientColors: gradientColors, locations: locations, start: start, end: end, size: size)
     }
     
-    func imageWithSize(_ size: CGSize, drawBlock: ((CGContext) -> Void)) -> UIImage? {
+    // MARK: - 图片调整大小
+
+    func imageByResize(to size: CGSize, drawBlock: ((CGContext) -> Void)) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
@@ -154,8 +89,8 @@ public extension UIImage {
         
         return image
     }
-    
-    func imageByResize(to size: CGSize = CGSize(width: 1.0, height: 1.0)) -> UIImage? {
+
+    func imageByResize(to size: CGSize) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
         UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
         self.draw(in: CGRect(origin: .zero, size: size))
@@ -188,21 +123,122 @@ public extension UIImage {
         return image
     }
     
-    func dataForCompression(to size: CGSize, smallWithByte byte: UInt64) -> Data? {
+    // MARK: - 图片调整尺寸+压缩大小
+    
+    func dataForCompression(to size: CGSize, resizeByte byte: UInt64, isDichotomy: Bool = true) -> Data? {
         let scaleImage = self.imageByResize(to: size, mode: .aspectFill)
         var quality: CGFloat = 1.0
         guard byte > 0 else { return scaleImage?.jpegData(compressionQuality: quality) }
         var imageData = scaleImage?.jpegData(compressionQuality: quality)
-        while (imageData != nil && imageData!.count > byte && quality >= 0.1) {
-            quality -= 0.1
-            imageData = scaleImage?.jpegData(compressionQuality: quality)
+        if isDichotomy {
+            guard imageData != nil else { return nil }
+            var max: CGFloat = 1.0, min: CGFloat = 0.0
+            for _ in 0..<5 {
+                quality = (max + min) / 2
+                imageData = scaleImage?.jpegData(compressionQuality: quality)
+                guard imageData != nil else { return nil }
+                if imageData!.count < Int(CGFloat(byte) * 0.9) {
+                    min = quality
+                }
+                else if imageData!.count > byte {
+                    max = quality
+                }
+                else {
+                    break
+                }
+            }
+        }
+        else {
+            while (imageData != nil && imageData!.count > byte && quality >= 0.1) {
+                quality -= 0.1
+                imageData = scaleImage?.jpegData(compressionQuality: quality)
+            }
         }
         return imageData
     }
     
     func imageForCompression(to size: CGSize, smallWithByte byte: UInt64) -> UIImage? {
         guard byte > 0 else { return self.imageByResize(to: size, mode: .aspectFill) }
-        guard let imageData = self.dataForCompression(to: size, smallWithByte: byte) else { return nil }
+        guard let imageData = self.dataForCompression(to: size, resizeByte: byte) else { return nil }
         return UIImage(data: imageData)
+    }
+}
+
+public extension UIImage {
+    /// 梯度风格枚举
+    enum GXGradientStyle {
+        /// 水平
+        case horizontal
+        /// 垂直
+        case vertical
+        /// 倾斜向上
+        case obliqueUp
+        /// 倾斜向下
+        case obliqueDown
+    }
+    /// 缩放类型
+    enum GXImageScaleMode: Int {
+        case clip       = 0
+        case aspectFit  = 1
+        case aspectFill = 2
+    }
+    
+    /// 按风格重新计算缩放rect
+    /// - Parameters:
+    ///   - rect: 自定矩形区域
+    ///   - mode: 缩放模式
+    /// - Returns: 计算缩放后的rect
+    private func gx_fitWithContentMode(rect: CGRect, mode: GXImageScaleMode) -> CGRect {
+        let widthFactor = rect.size.width / self.size.width
+        let heightFactor = rect.size.height / self.size.height
+        switch (mode) {
+        case .clip:
+            let scaleFactor = max(widthFactor, heightFactor)
+            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
+            var left: CGFloat = 0.0, top: CGFloat = 0.0
+            if (widthFactor > heightFactor) {
+                top = rect.origin.y + (rect.size.height - drawSize.height) * 0.5
+            }
+            else if (widthFactor < heightFactor) {
+                left = rect.origin.x + (rect.size.width - drawSize.width) * 0.5
+            }
+            return CGRect(origin: CGPoint(x: left, y: top), size: drawSize)
+        case .aspectFill:
+            let scaleFactor = max(widthFactor, heightFactor)
+            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
+            return CGRect(origin: rect.origin, size: drawSize)
+        case .aspectFit:
+            let scaleFactor = min(widthFactor, heightFactor)
+            let drawSize = CGSize(width: self.size.width * scaleFactor, height: self.size.height * scaleFactor)
+            var left: CGFloat = 0.0, top: CGFloat = 0.0
+            if (widthFactor > heightFactor) {
+                left = rect.origin.x + (rect.size.width - drawSize.width) * 0.5;
+            }
+            else if (widthFactor < heightFactor) {
+                top = rect.origin.y + (rect.size.height - drawSize.height) * 0.5;
+            }
+            return CGRect(origin: CGPoint(x: left, y: top), size: drawSize)
+        }
+    }
+    
+    /// 按风格绘制本图片
+    /// - Parameters:
+    ///   - rect: 绘制rect
+    ///   - mode: 缩放模式
+    ///   - clipsToBounds: 是否显示边界之外/裁剪
+    func gx_draw(in rect: CGRect, mode: GXImageScaleMode, clipsToBounds: Bool) {
+        let drawRect = self.gx_fitWithContentMode(rect: rect, mode: mode)
+        guard drawRect.size.width > 0 && drawRect.size.height > 0 else { return }
+        if clipsToBounds {
+            guard let context = UIGraphicsGetCurrentContext() else { return }
+            context.saveGState()
+            context.addRect(rect)
+            context.clip()
+            self.draw(in: rect)
+            context.restoreGState()
+        }
+        else {
+            self.draw(in: rect)
+        }
     }
 }

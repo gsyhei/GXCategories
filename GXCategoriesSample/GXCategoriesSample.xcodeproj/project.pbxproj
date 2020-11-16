@@ -164,22 +164,22 @@
 		33A5AF2F255EEC5C00AEAF87 /* GXCategories */ = {
 			isa = PBXGroup;
 			children = (
-				33A5AF30255EEC5C00AEAF87 /* Array+GXAdd.swift */,
-				33A5AF31255EEC5C00AEAF87 /* UIViewController+GXAdd.swift */,
-				33A5AF32255EEC5C00AEAF87 /* UIImage+GXAdd.swift */,
-				33A5AF33255EEC5C00AEAF87 /* UITableView+GXAdd.swift */,
-				33A5AF34255EEC5C00AEAF87 /* Dictionry+GXAdd.swift */,
-				33A5AF35255EEC5C00AEAF87 /* String+GXAdd.swift */,
 				33A5AF36255EEC5C00AEAF87 /* Date+GXAdd.swift */,
-				33A5AF37255EEC5C00AEAF87 /* UIApplication+GXAdd.swift */,
-				33A5AF38255EEC5C00AEAF87 /* UIDevice+GXAdd.swift */,
-				33A5AF39255EEC5C00AEAF87 /* UIButton+GXAdd.swift */,
-				33A5AF3A255EEC5C00AEAF87 /* UIView+GXAdd.swift */,
-				33A5AF3B255EEC5C00AEAF87 /* CALayer+GXAdd.swift */,
-				33A5AF3C255EEC5C00AEAF87 /* NSObject+GXAdd.swift */,
-				33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */,
 				33A5AF3E255EEC5C00AEAF87 /* Data+GXAdd.swift */,
+				33A5AF35255EEC5C00AEAF87 /* String+GXAdd.swift */,
+				33A5AF32255EEC5C00AEAF87 /* UIImage+GXAdd.swift */,
 				33A5AF3F255EEC5C00AEAF87 /* UIColor+GXAdd.swift */,
+				33A5AF30255EEC5C00AEAF87 /* Array+GXAdd.swift */,
+				33A5AF34255EEC5C00AEAF87 /* Dictionry+GXAdd.swift */,
+				33A5AF3C255EEC5C00AEAF87 /* NSObject+GXAdd.swift */,
+				33A5AF3B255EEC5C00AEAF87 /* CALayer+GXAdd.swift */,
+				33A5AF3A255EEC5C00AEAF87 /* UIView+GXAdd.swift */,
+				33A5AF39255EEC5C00AEAF87 /* UIButton+GXAdd.swift */,
+				33A5AF38255EEC5C00AEAF87 /* UIDevice+GXAdd.swift */,
+				33A5AF37255EEC5C00AEAF87 /* UIApplication+GXAdd.swift */,
+				33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */,
+				33A5AF33255EEC5C00AEAF87 /* UITableView+GXAdd.swift */,
+				33A5AF31255EEC5C00AEAF87 /* UIViewController+GXAdd.swift */,
 			);
 			name = GXCategories;
 			path = ../../GXCategories;

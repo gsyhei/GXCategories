@@ -10,6 +10,31 @@ import UIKit
 
 public extension UIDevice {
     
+    class func getIPAddresses() -> String? {
+        var addresses = [String]()
+        var ifaddr : UnsafeMutablePointer<ifaddrs>? = nil
+        if getifaddrs(&ifaddr) == 0 {
+            var ptr = ifaddr
+            while (ptr != nil) {
+                let flags = Int32(ptr!.pointee.ifa_flags)
+                var addr = ptr!.pointee.ifa_addr.pointee
+                if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
+                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                            if let address = String(validatingUTF8:hostname) {
+                                addresses.append(address)
+                            }
+                        }
+                    }
+                }
+                ptr = ptr!.pointee.ifa_next
+            }
+            freeifaddrs(ifaddr)
+        }
+        return addresses.first
+    }
+    
     var systemVersionFloat: Float? {
         return Float(self.systemVersion)
     }
@@ -128,6 +153,7 @@ public extension UIDevice {
             return"iPod Touch 5"
         case"iPod7,1":
             return"iPod Touch 6"
+            
         case"iPhone3,1", "iPhone3,2", "iPhone3,3":
             return"iPhone4"
         case"iPhone4,1":
@@ -170,6 +196,7 @@ public extension UIDevice {
             return"iPhone11 ProMax"
         case"iPhone12,5":
             return"iPhone11 Pro"
+            
         case"iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":
             return"iPad 2"
         case"iPad3,1", "iPad3,2", "iPad3,3":
@@ -190,6 +217,7 @@ public extension UIDevice {
             return"iPad Mini 4"
         case"iPad6,7","iPad6,8":
             return"iPad Pro"
+            
         case"AppleTV5,3":
             return"Apple TV"
         case"i386","x86_64":

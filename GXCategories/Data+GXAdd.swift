@@ -20,6 +20,8 @@ public extension Data {
 
 public extension Data {
     
+    // MARK: - 编解码（MD5/SHA）
+    
     @available(iOS, introduced: 2.0, deprecated: 13.0, message: "This function is cryptographically broken and should not be used in security contexts. Clients should migrate to SHA256 (or stronger).")
     func md5String() -> String {
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
@@ -147,7 +149,7 @@ public extension Data {
         free(result)
         return data
     }
-    
+        
     func hmacStringUsing(alg: CCHmacAlgorithm, key: String) -> String? {
         var digestLen: Int
         switch alg {
@@ -198,7 +200,7 @@ public extension Data {
         free(result)
         return data
     }
-    
+        
     func hmacDataUsing(key: Data) -> Data? {
         return self.hmacDataUsing(alg: CCHmacAlgorithm(kCCHmacAlgMD5), key: key)
     }
@@ -246,6 +248,8 @@ public extension Data {
     func hmacSHA512String(key: String) -> String? {
         return self.hmacStringUsing(alg: CCHmacAlgorithm(kCCHmacAlgSHA512), key: key)
     }
+    
+    // MARK: - crc32/aes256
     
     func crc32UInt() -> UInt32 {
         let uPointer: UnsafePointer<Bytef> = self.withUnsafeBytes {$0.load(as: UnsafePointer<Bytef>.self)}
@@ -314,6 +318,8 @@ public extension Data {
             return nil
         }
     }
+    
+    // MARK: - Utility
     
     func utf8String() -> String {
         return String(data: self, encoding: .utf8) ?? ""

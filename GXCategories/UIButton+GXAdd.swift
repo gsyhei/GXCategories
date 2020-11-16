@@ -22,9 +22,11 @@ public extension UIButton {
         case .left:
             if self.contentHorizontalAlignment == .left {
                 self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: spacing, bottom: 0, right: 0)
-            } else if self.contentHorizontalAlignment == .right {
+            }
+            else if self.contentHorizontalAlignment == .right {
                 self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: spacing)
-            } else {
+            }
+            else {
                 let spacing_half = 0.5 * spacing;
                 self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -spacing_half, bottom: 0, right: spacing_half)
                 self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: spacing_half, bottom: 0, right: -spacing_half)
@@ -34,10 +36,12 @@ public extension UIButton {
             if self.contentHorizontalAlignment == .left {
                 self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth + spacing, bottom: 0, right: 0)
                 self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -imageSize.width, bottom: 0, right: 0)
-            } else if self.contentHorizontalAlignment == .right {
+            }
+            else if self.contentHorizontalAlignment == .right {
                 self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: -titleWidth)
                 self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: imageSize.width + spacing)
-            } else {
+            }
+            else {
                 let imageOffset = titleWidth + 0.5 * spacing
                 let titleOffset = imageSize.width + 0.5 * spacing
                 self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: imageOffset, bottom: 0, right: -imageOffset)
@@ -52,6 +56,10 @@ public extension UIButton {
         }
     }
     
+    /// 设置背景色
+    /// - Parameters:
+    ///   - color: 颜色
+    ///   - state: 状态
     func setBackgroundColor(_ color: UIColor?, for state: UIControl.State) {
         if color != nil {
             let image = UIImage(color: color!)
@@ -66,6 +74,7 @@ public extension UIButton {
 private var GXBtnHitUIEdgeInsetsKey = 10
 public extension UIButton {
     
+    /// 位置枚举
     enum GXLocationMode {
         case top
         case bottom
@@ -73,6 +82,7 @@ public extension UIButton {
         case right
     }
     
+    /// 点击区域UIEdgeInsets
     var hitEdgeInsets: UIEdgeInsets? {
         get {
             return objc_getAssociatedObject(self, &GXBtnHitUIEdgeInsetsKey) as? UIEdgeInsets
@@ -82,6 +92,7 @@ public extension UIButton {
         }
     }
     
+    // MARK: - Override
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         guard !self.isHidden || self.isEnabled || self.alpha > 0 else {
             return super.point(inside: point, with: event)

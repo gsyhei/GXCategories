@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 public extension String {
+    // MARK: - 字符串截取subscript
     
     /// String使用下标截取字符串
     /// string[index] 例如："abcdefg"[3] // c
@@ -53,9 +54,12 @@ public extension String {
         return self[range.location, range.length]
     }
     
+    /// range of all
     func rangeOfAll() -> NSRange {
         return NSRange(location: 0, length: self.count)
     }
+    
+    // MARK: - 编解码（MD5/SHA）
 
     @available(iOS, introduced: 2.0, deprecated: 13.0, message: "This function is cryptographically broken and should not be used in security contexts. Clients should migrate to SHA256 (or stronger).")
     func md5String() -> String? {
@@ -129,6 +133,11 @@ public extension String {
         return self.removingPercentEncoding
     }
     
+    /// 包含判断
+    /// - Parameters:
+    ///   - find: 目标字符串
+    ///   - options: 匹配方式
+    /// - Returns: Bool
     func contains(find: String, options: CompareOptions = []) -> Bool {
         return self.range(of: find, options: options) != nil
     }
@@ -161,13 +170,15 @@ public extension String {
         let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         return self.size(size: maxSize, font: font).width
     }
-    
+
+    /// 正则匹配
     func matches(regex: String, options: NSRegularExpression.Options = []) -> Bool {
         let pattern = try? NSRegularExpression(pattern: regex, options: options)
         guard pattern != nil else { return false }
         return (pattern!.numberOfMatches(in: self, options: [], range: self.rangeOfAll()) > 0)
     }
     
+    /// 枚举正则匹配
     func enumerateMatches(regex: String, options: NSRegularExpression.Options = [], usingBlock: (String?, NSRange?, UnsafeMutablePointer<ObjCBool>) -> Void) {
         let pattern = try? NSRegularExpression(pattern: regex, options: options)
         guard pattern != nil else { return }
@@ -181,27 +192,32 @@ public extension String {
         }
     }
     
+    /// 正则替换
     func stringByReplacing(regex: String, options: NSRegularExpression.Options = [], replacement: String) -> String {
         let pattern = try? NSRegularExpression(pattern: regex, options: options)
         guard pattern != nil else { return self }
         return pattern!.stringByReplacingMatches(in: self, range: self.rangeOfAll(), withTemplate: replacement)
     }
 
+    /// UUID
     static func stringWithUUID() -> String? {
         let uuid = CFUUIDCreate(kCFAllocatorDefault)
         let cfString = CFUUIDCreateString(kCFAllocatorDefault, uuid)
         return cfString as String?
     }
     
+    /// 去掉首尾空格
     func stringByTrim() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    /// 判断自是否为nil
     func isNotBlank() -> Bool {
         return self.stringByTrim().count > 0
     }
-
-    func jsonVallueDecoded() -> Any? {
+    
+    /// json解码
+    func jsonValueDecoded() -> Any? {
         return self.data(using: .utf8)?.jsonValueDecoded()
     }
 }

@@ -9,10 +9,13 @@
 import Foundation
 
 public extension Date {
+    /// DateFormatter单例
     static let gx_dateFormatter: DateFormatter = {
         let instance = DateFormatter()
         return instance
     }()
+    
+    // MARK: - 日期属性
     
     var year: Int {
         return NSCalendar.current.component(.year, from: self)
@@ -83,6 +86,8 @@ public extension Date {
         return NSCalendar.current.isDateInYesterday(self)
     }
     
+    // MARK: - 日期增加（年/月/周/日/时/分/秒）
+    
     func dateByAdding(years: Int) -> Date? {
         var components: DateComponents = DateComponents()
         components.year = years
@@ -124,6 +129,8 @@ public extension Date {
         components.second = seconds
         return NSCalendar.current.date(byAdding: components, to: self)
     }
+    
+    // MARK: - 日期和字符串的转换
     
     func string(format: String, locale: Locale = Locale.current, timeZone: TimeZone = TimeZone.current) -> String {
         Date.gx_dateFormatter.dateFormat = format
