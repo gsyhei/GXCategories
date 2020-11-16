@@ -122,7 +122,7 @@ public extension UIDevice {
     var memoryUsed: Int64 {
         let host_port = mach_host_self()
         var host_size: mach_msg_type_number_t = mach_msg_type_number_t(MemoryLayout<vm_statistics_data_t>.size / MemoryLayout<integer_t>.size)
-        var page_size: UInt = 0
+        var page_size: vm_size_t = 0
         var vm_stat: integer_t = 0
         var kern: kern_return_t = 0
         kern = _host_page_size(host_port, &page_size)
