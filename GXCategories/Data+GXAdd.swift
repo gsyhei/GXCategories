@@ -355,7 +355,7 @@ public extension Data {
         return try? JSONSerialization.jsonObject(with: self)
     }
     
-    func dataNamed(name: String, ext: String?) -> Data? {
+    func dataNamed(_ name: String, ext: String?) -> Data? {
         let url = Bundle.main.url(forResource: name, withExtension: ext)
         if let fileUrl = url {
             return try? Data(contentsOf: fileUrl)

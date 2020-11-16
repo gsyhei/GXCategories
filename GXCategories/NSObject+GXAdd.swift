@@ -14,19 +14,27 @@ public extension NSObject {
         return String(describing: self)
     }
     
-    class func swizzleInstanceMethod(originalSel: Selector, newSel: Selector) -> Bool {
+    /// 不要犯傻，要用你交换方法的类名来调用[不要使用NSObject.swizzleInstanceMethod]
+    class func swizzleInstanceMethod(originalSel: Selector, targetSel: Selector) -> Bool {
         let originalMethod = class_getInstanceMethod(self, originalSel)
-        let newMethod = class_getInstanceMethod(self, newSel)
-        guard originalMethod != nil && newMethod != nil else { return false }
-        method_exchangeImplementations(originalMethod!, newMethod!)
+        let targetMethod = class_getInstanceMethod(self, targetSel)
+        guard originalMethod != nil && targetMethod != nil else { return false }
+        if let originalImp = class_getMethodImplementation(self, originalSel) {
+            class_addMethod(self, originalSel, originalImp, method_getTypeEncoding(originalMethod!))
+        }
+        if let targetImp = class_getMethodImplementation(self, targetSel) {
+            class_addMethod(self, targetSel, targetImp, method_getTypeEncoding(targetMethod!))
+        }
+        method_exchangeImplementations(originalMethod!, targetMethod!)
         return true
     }
     
-    class func swizzleClassMethod(originalSel: Selector, newSel: Selector) -> Bool {
+    /// 不要犯傻，要用你交换方法的类名来调用[不要使用NSObject.swizzleInstanceMethod]
+    class func swizzleClassMethod(originalSel: Selector, targetSel: Selector) -> Bool {
         let originalMethod = class_getClassMethod(self, originalSel)
-        let newMethod = class_getClassMethod(self, newSel)
-        guard originalMethod != nil && newMethod != nil else { return false }
-        method_exchangeImplementations(originalMethod!, newMethod!)
+        let targetMethod = class_getClassMethod(self, targetSel)
+        guard originalMethod != nil && targetMethod != nil else { return false }
+        method_exchangeImplementations(originalMethod!, targetMethod!)
         return true
     }
     
