@@ -14,7 +14,7 @@ public extension UIColor {
         let hexString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
         let scanner   = Scanner(string: hexString)
         if hexString.hasPrefix("#") {
-            if #available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            if #available(iOS 13.0, watchOS 6.0, tvOS 13.0, macOS 10.15, *) {
                 scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
             } else {
                 scanner.scanLocation = 1
