@@ -29,7 +29,7 @@ public extension NSObject {
         return true
     }
     
-    /// 不要犯傻，要用你交换方法的类名来调用[不要使用NSObject.swizzleInstanceMethod]
+    /// 不要犯傻，要用你交换方法的类名来调用[不要使用NSObject.swizzleClassMethod]
     class func swizzleClassMethod(originalSel: Selector, targetSel: Selector) -> Bool {
         let originalMethod = class_getClassMethod(self, originalSel)
         let targetMethod = class_getClassMethod(self, targetSel)
