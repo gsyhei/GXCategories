@@ -140,18 +140,24 @@ public extension UIView {
     ///   - name: xib名
     ///   - index: 视图索引（xib允许存在多个独立view）
     /// - Returns: 对应视图
-    class func xibView(_ name: String, index: Int = 0) -> UIView {
-        let view = Bundle.main.loadNibNamed(name, owner: nil, options: nil)?[index]
-        return view as! UIView
+    class func xibView(_ name: String, index: Int = 0) -> Self {
+        let nibView = Bundle.main.loadNibNamed(name, owner: nil, options: nil)?[index]
+        guard let view = nibView as? Self else {
+            fatalError("The xib view is incorrect.")
+        }
+        return view
     }
     
     /// 获取xib视图
     /// - Parameters:
     ///   - index: 视图索引（xib允许存在多个独立view）
     /// - Returns: 对应视图
-    class func xibView(index: Int = 0) -> UIView {
-        let view = Bundle.main.loadNibNamed(self.className(), owner: nil, options: nil)?[index]
-        return view as! UIView
+    class func xibView(index: Int = 0) -> Self {
+        let nibView = Bundle.main.loadNibNamed(self.className(), owner: nil, options: nil)?[index]
+        guard let view = nibView as? Self else {
+            fatalError("The xib view is incorrect.")
+        }
+        return view
     }
     
     func currentWindow() -> UIWindow? {

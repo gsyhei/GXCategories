@@ -9,17 +9,20 @@
 import UIKit
 
 public extension UIViewController {
-    
-    class func xibViewController<T: UIViewController>(type: T.Type = T.self) -> T {
-        guard let viewController = self.init(nibName: self.className(), bundle: nil) as? T else {
-            fatalError("The xib viewController of '\(self)' is not of class '\(type.self)'")
-        }
-        return viewController
+
+    class func xibViewController() -> Self {
+        return self.init(nibName: self.className(), bundle: nil)
     }
     
     func addBackBarButtonItem(imageNamed: String, action: Selector = #selector(backBarButtonItemTapped)) {
         let normalImage = UIImage(named: imageNamed)?.withRenderingMode(.automatic)
         let leftBarButtonItem = UIBarButtonItem(image: normalImage, style: .plain, target: self, action: action)
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+    }
+    
+    func addBackBarButtonItem(image: UIImage, action: Selector = #selector(backBarButtonItemTapped)) {
+        let leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: action)
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
