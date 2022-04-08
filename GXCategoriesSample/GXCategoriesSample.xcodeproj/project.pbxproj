@@ -88,7 +88,6 @@
 		9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+GXAdd.swift"; sourceTree = "<group>"; };
 		9673BB4227FFDC9200133372 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9673BB4427FFDCA800133372 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		9673BB4527FFDCAF00133372 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,7 +281,6 @@
 				en,
 				Base,
 				"zh-Hans",
-				"zh-Hant",
 			);
 			mainGroup = 33A5AEF0255EEC4C00AEAF87;
 			productRefGroup = 33A5AEFA255EEC4C00AEAF87 /* Products */;
@@ -406,7 +404,6 @@
 			children = (
 				9673BB4227FFDC9200133372 /* en */,
 				9673BB4427FFDCA800133372 /* zh-Hans */,
-				9673BB4527FFDCAF00133372 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

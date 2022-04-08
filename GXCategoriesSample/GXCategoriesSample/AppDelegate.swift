@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         Bundle.gx_load()
-        NSLog("%@当前国际化：%@", GXBundle.userLanguage, GXLSTR("按钮"))
+        NSLog("%@当前国际化：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
         
         return true
     }

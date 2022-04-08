@@ -31,23 +31,23 @@ class ViewController: UIViewController {
     @IBAction func button1Clicked(_ sender: Any?) {
         GXBundle.userLanguage = "zh-Hans"
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
-        NSLog("当前国际化%@：%@", GXBundle.userLanguage, GXLSTR("按钮"))
+        NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
     }
     
     @IBAction func button2Clicked(_ sender: Any?) {
         GXBundle.userLanguage = "zh-Hant"
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
-        NSLog("当前国际化%@：%@", GXBundle.userLanguage, GXLSTR("按钮"))
+        NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
     }
     
     @IBAction func button3Clicked(_ sender: Any?) {
         GXBundle.userLanguage = "en"
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
-        NSLog("当前国际化%@：%@", GXBundle.userLanguage, GXLSTR("按钮"))
+        NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
     }
     
     @IBAction func button4Clicked(_ sender: Any?) {
-        
+        NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
     }
 
 }

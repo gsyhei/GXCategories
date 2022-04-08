@@ -16,7 +16,7 @@ public class GXBundle: Bundle {
     static let AppleLanguages = "AppleLanguages"
     
     private class var gx_main: Bundle? {
-        if Bundle.currentLanguage.count > 0 {
+        if let language = Bundle.currentLanguage, language.count > 0 {
             let path = Bundle.main.path(forResource: Bundle.currentLanguage, ofType: "lproj")
             if let thePath = path {
                 return Bundle(path: thePath)
@@ -25,18 +25,18 @@ public class GXBundle: Bundle {
         return nil
     }
     
-    class var userLanguage: String {
+    class var userLanguage: String? {
         set {
-            guard newValue.count > 0 else {
+            guard let value = newValue, value.count > 0 else {
                 self.resetSystemLanguage()
                 return
             }
-            UserDefaults.standard.setValue(newValue, forKey: GXUserLanguageKey)
-            UserDefaults.standard.setValue([newValue], forKey: AppleLanguages)
+            UserDefaults.standard.setValue(value, forKey: GXUserLanguageKey)
+            UserDefaults.standard.setValue([value], forKey: AppleLanguages)
             UserDefaults.standard.synchronize()
         }
         get {
-            return UserDefaults.standard.string(forKey: GXUserLanguageKey) ?? ""
+            return UserDefaults.standard.string(forKey: GXUserLanguageKey)
         }
     }
     
@@ -54,7 +54,6 @@ public class GXBundle: Bundle {
     }
 }
 
-
 public extension Bundle {
     
     /// 需要默认加载（在didFinishLaunchingWithOptions中加入）
@@ -62,14 +61,17 @@ public extension Bundle {
         object_setClass(Bundle.main, GXBundle.self)
     }
     
-    class var currentLanguage: String {
-        if GXBundle.userLanguage.count > 0 {
-            return GXBundle.userLanguage
+    class var currentLanguage: String? {
+        if let language = GXBundle.userLanguage, language.count > 0 {
+            return language
         }
-        return NSLocale.preferredLanguages.first ?? ""
+        return NSLocale.preferredLanguages.first
     }
     
     class var isChineseLanguage: Bool {
-        return self.currentLanguage.hasPrefix("zh-")
+        if let language = self.currentLanguage, language.count > 0 {
+            return language.hasPrefix("zh-")
+        }
+        return false
     }
 }
