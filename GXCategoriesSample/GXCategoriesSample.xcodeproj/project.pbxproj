@@ -31,6 +31,9 @@
 		33A5AF4D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */; };
 		33A5AF4E255EEC5C00AEAF87 /* Data+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3E255EEC5C00AEAF87 /* Data+GXAdd.swift */; };
 		33A5AF4F255EEC5C00AEAF87 /* UIColor+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3F255EEC5C00AEAF87 /* UIColor+GXAdd.swift */; };
+		9673BB3C27FFC7E700133372 /* Bundle+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */; };
+		9673BB3E27FFC84400133372 /* DispatchQueue+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */; };
+		9673BB4127FFDC9200133372 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9673BB4327FFDC9200133372 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,11 @@
 		33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GXAdd.swift"; sourceTree = "<group>"; };
 		33A5AF3E255EEC5C00AEAF87 /* Data+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+GXAdd.swift"; sourceTree = "<group>"; };
 		33A5AF3F255EEC5C00AEAF87 /* UIColor+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+GXAdd.swift"; sourceTree = "<group>"; };
+		9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+GXAdd.swift"; sourceTree = "<group>"; };
+		9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+GXAdd.swift"; sourceTree = "<group>"; };
+		9673BB4227FFDC9200133372 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9673BB4427FFDCA800133372 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9673BB4527FFDCAF00133372 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +143,7 @@
 				33A5AEFC255EEC4C00AEAF87 /* AppDelegate.swift */,
 				33A5AEFE255EEC4C00AEAF87 /* SceneDelegate.swift */,
 				33A5AF00255EEC4C00AEAF87 /* ViewController.swift */,
+				9673BB4327FFDC9200133372 /* Localizable.strings */,
 				33A5AF02255EEC4C00AEAF87 /* Main.storyboard */,
 				33A5AF05255EEC4C00AEAF87 /* Assets.xcassets */,
 				33A5AF07255EEC4C00AEAF87 /* LaunchScreen.storyboard */,
@@ -180,6 +189,8 @@
 				33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */,
 				33A5AF33255EEC5C00AEAF87 /* UITableView+GXAdd.swift */,
 				33A5AF31255EEC5C00AEAF87 /* UIViewController+GXAdd.swift */,
+				9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */,
+				9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */,
 			);
 			name = GXCategories;
 			path = ../../GXCategories;
@@ -270,6 +281,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 33A5AEF0255EEC4C00AEAF87;
 			productRefGroup = 33A5AEFA255EEC4C00AEAF87 /* Products */;
@@ -289,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33A5AF09255EEC4C00AEAF87 /* LaunchScreen.storyboard in Resources */,
+				9673BB4127FFDC9200133372 /* Localizable.strings in Resources */,
 				33A5AF06255EEC4C00AEAF87 /* Assets.xcassets in Resources */,
 				33A5AF04255EEC4C00AEAF87 /* Main.storyboard in Resources */,
 			);
@@ -318,10 +332,12 @@
 				33A5AF4E255EEC5C00AEAF87 /* Data+GXAdd.swift in Sources */,
 				33A5AF46255EEC5C00AEAF87 /* Date+GXAdd.swift in Sources */,
 				33A5AF49255EEC5C00AEAF87 /* UIButton+GXAdd.swift in Sources */,
+				9673BB3C27FFC7E700133372 /* Bundle+GXAdd.swift in Sources */,
 				33A5AF44255EEC5C00AEAF87 /* Dictionry+GXAdd.swift in Sources */,
 				33A5AF42255EEC5C00AEAF87 /* UIImage+GXAdd.swift in Sources */,
 				33A5AF01255EEC4C00AEAF87 /* ViewController.swift in Sources */,
 				33A5AEFD255EEC4C00AEAF87 /* AppDelegate.swift in Sources */,
+				9673BB3E27FFC84400133372 /* DispatchQueue+GXAdd.swift in Sources */,
 				33A5AF40255EEC5C00AEAF87 /* Array+GXAdd.swift in Sources */,
 				33A5AF41255EEC5C00AEAF87 /* UIViewController+GXAdd.swift in Sources */,
 				33A5AF43255EEC5C00AEAF87 /* UITableView+GXAdd.swift in Sources */,
@@ -385,6 +401,16 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		9673BB4327FFDC9200133372 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9673BB4227FFDC9200133372 /* en */,
+				9673BB4427FFDCA800133372 /* zh-Hans */,
+				9673BB4527FFDCAF00133372 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -392,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -453,6 +480,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -510,14 +538,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L54KZN9KMH;
+				DEVELOPMENT_TEAM = 456X827366;
 				INFOPLIST_FILE = GXCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gin.GXCategoriesSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xsg.GXCategoriesSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -529,8 +557,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L54KZN9KMH;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GXCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -539,6 +567,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gin.GXCategoriesSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
