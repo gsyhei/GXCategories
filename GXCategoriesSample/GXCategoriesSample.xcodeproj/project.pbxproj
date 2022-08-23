@@ -34,6 +34,7 @@
 		9673BB3C27FFC7E700133372 /* Bundle+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */; };
 		9673BB3E27FFC84400133372 /* DispatchQueue+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */; };
 		9673BB4127FFDC9200133372 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9673BB4327FFDC9200133372 /* Localizable.strings */; };
+		968CCB5828B4E447006FC283 /* UINavigationController+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+GXAdd.swift"; sourceTree = "<group>"; };
 		9673BB4227FFDC9200133372 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9673BB4427FFDCA800133372 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+GXAdd.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */,
 				33A5AF33255EEC5C00AEAF87 /* UITableView+GXAdd.swift */,
 				33A5AF31255EEC5C00AEAF87 /* UIViewController+GXAdd.swift */,
+				968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */,
 				9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */,
 				9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */,
 			);
@@ -341,6 +344,7 @@
 				33A5AF43255EEC5C00AEAF87 /* UITableView+GXAdd.swift in Sources */,
 				33A5AF4F255EEC5C00AEAF87 /* UIColor+GXAdd.swift in Sources */,
 				33A5AF4A255EEC5C00AEAF87 /* UIView+GXAdd.swift in Sources */,
+				968CCB5828B4E447006FC283 /* UINavigationController+GXAdd.swift in Sources */,
 				33A5AF4D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift in Sources */,
 				33A5AF4C255EEC5C00AEAF87 /* NSObject+GXAdd.swift in Sources */,
 				33A5AF48255EEC5C00AEAF87 /* UIDevice+GXAdd.swift in Sources */,

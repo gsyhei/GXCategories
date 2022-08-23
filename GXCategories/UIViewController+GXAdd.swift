@@ -27,16 +27,6 @@ public extension UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
-    func popToViewController(vcType: UIViewController.Type, animated: Bool) {
-        guard self.navigationController != nil else { return }
-        for vc in self.navigationController!.viewControllers {
-            if (vc.isMember(of: vcType)) {
-                self.navigationController?.popToViewController(vc, animated: animated)
-                return
-            }
-        }
-    }
-    
     func dismissToViewController(vcType: UIViewController.Type, animated: Bool, completion: (() -> Void)? = nil) {
         var vc: UIViewController = self
         while (vc.presentingViewController != nil && vc.presentingViewController!.isMember(of: vcType)) {

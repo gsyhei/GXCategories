@@ -103,11 +103,35 @@ public extension UITableView {
         self.reloadSections(sections, with: animation)
     }
     
-    func clearSelectedRows(animated: Bool) {
+    func deselectSection(section: Int, animated: Bool) {
+        if let indexs = self.indexPathsForSelectedRows {
+            for indexPath in indexs {
+                guard section == indexPath.section else { continue }
+                self.deselectRow(at: indexPath, animated: animated)
+            }
+        }
+    }
+    
+    func deselectAll(animated: Bool) {
         if let indexs = self.indexPathsForSelectedRows {
             for indexPath in indexs {
                 self.deselectRow(at: indexPath, animated: animated)
             }
+        }
+    }
+    
+    func selectSection(section: Int, animated: Bool) {
+        let rows = self .numberOfRows(inSection: section)
+        for row in 0..<rows {
+            let indexPath = IndexPath(row: row, section: section)
+            self.selectRow(at: indexPath, animated: animated, scrollPosition: .none)
+        }
+    }
+    
+    func selectAll(animated: Bool) {
+        let sections = self.numberOfSections
+        for section in 0..<sections {
+            self.selectSection(section: section, animated: animated)
         }
     }
 
