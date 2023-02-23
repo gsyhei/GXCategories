@@ -16,7 +16,14 @@ public extension UITableView {
     ///   - mode: 键盘隐藏模式
     ///   - separatorLeft: 分割线是否居左
     ///   - footerZero: 页脚设置（去掉多余分割线）
-    func configuration(estimated: Bool = false, mode: UIScrollView.KeyboardDismissMode = .onDrag, separatorLeft: Bool = true, footerZero: Bool = true) {
+    ///   - sectionHeaderTopPadding: iOS15 section header上间距
+    ///   - fillerRowHeight: iOS15 底部默认增加的cell高度
+    func configuration(estimated: Bool = false,
+                       mode: UIScrollView.KeyboardDismissMode = .onDrag,
+                       separatorLeft: Bool = true,
+                       footerZero: Bool = true,
+                       sectionHeaderTopPadding: CGFloat = 0,
+                       fillerRowHeight: CGFloat = 0) {
         if !estimated {
             self.estimatedRowHeight = 0
             self.estimatedSectionHeaderHeight = 0
@@ -33,6 +40,10 @@ public extension UITableView {
         }
         if footerZero {
             self.tableFooterView = UIView()
+        }
+        if #available(iOS 15.0, *) {
+            self.sectionHeaderTopPadding = sectionHeaderTopPadding
+            self.fillerRowHeight = fillerRowHeight
         }
     }
     
