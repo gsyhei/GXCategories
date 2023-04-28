@@ -60,7 +60,7 @@ public extension String {
     }
     
     // MARK: - 编解码（MD5/SHA）
-
+    
     @available(iOS, introduced: 2.0, deprecated: 13.0, message: "This function is cryptographically broken and should not be used in security contexts. Clients should migrate to SHA256 (or stronger).")
     func md5String() -> String? {
         return self.data(using: .utf8)?.md5String()
@@ -170,19 +170,17 @@ public extension String {
         let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         return self.size(size: maxSize, font: font).width
     }
-
+    
     /// 正则匹配
     func matches(regex: String, options: NSRegularExpression.Options = []) -> Bool {
-        let pattern = try? NSRegularExpression(pattern: regex, options: options)
-        guard pattern != nil else { return false }
-        return (pattern!.numberOfMatches(in: self, options: [], range: self.rangeOfAll()) > 0)
+        guard let pattern = try? NSRegularExpression(pattern: regex, options: options) else { return false }
+        return (pattern.numberOfMatches(in: self, options: [], range: self.rangeOfAll()) > 0)
     }
     
     /// 枚举正则匹配
     func enumerateMatches(regex: String, options: NSRegularExpression.Options = [], usingBlock: (String?, NSRange?, UnsafeMutablePointer<ObjCBool>) -> Void) {
-        let pattern = try? NSRegularExpression(pattern: regex, options: options)
-        guard pattern != nil else { return }
-        pattern!.enumerateMatches(in: self, range: self.rangeOfAll()) { (result, flags, stop) in
+        guard let pattern = try? NSRegularExpression(pattern: regex, options: options) else { return }
+        pattern.enumerateMatches(in: self, range: self.rangeOfAll()) { (result, flags, stop) in
             if (result != nil) {
                 usingBlock(self.substring(range: result!.range), result!.range, stop)
             }
@@ -194,11 +192,10 @@ public extension String {
     
     /// 正则替换
     func stringByReplacing(regex: String, options: NSRegularExpression.Options = [], replacement: String) -> String {
-        let pattern = try? NSRegularExpression(pattern: regex, options: options)
-        guard pattern != nil else { return self }
-        return pattern!.stringByReplacingMatches(in: self, range: self.rangeOfAll(), withTemplate: replacement)
+        guard let pattern = try? NSRegularExpression(pattern: regex, options: options) else { return self }
+        return pattern.stringByReplacingMatches(in: self, range: self.rangeOfAll(), withTemplate: replacement)
     }
-
+    
     /// UUID
     static func stringWithUUID() -> String? {
         let uuid = CFUUIDCreate(kCFAllocatorDefault)
@@ -220,6 +217,24 @@ public extension String {
     func jsonValueDecoded() -> Any? {
         return self.data(using: .utf8)?.jsonValueDecoded()
     }
+    
+    /// 字符串转拼音
+    /// - Parameter isUppercase: 是否大写
+    /// - Returns: 转换后的拼音字符串
+    func transformToPinYin(isUppercase: Bool = false) -> String {
+        let mutableString = NSMutableString(string: self)
+        CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
+        CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
+        var string = String(mutableString)
+        string = string.replacingOccurrences(of: " ", with: "")
+        if isUppercase {
+            return string.uppercased()
+        }
+        else {
+            return string
+        }
+    }
+
 }
 
 public extension String {

@@ -32,6 +32,22 @@ class ViewController: UIViewController {
         GXBundle.userLanguage = "zh-Hans"
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
         NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
+        
+        let string = "际化"
+        var pinying = string.transformToPinYin(isUppercase: true)
+        if pinying.count > 6 {
+            pinying = pinying.substring(to: 6)
+        }
+        else {
+            for _ in pinying.count..<6 {
+                pinying += "0"
+            }
+        }
+        var hexString = String(format: "#%X", pinying)
+        hexString = hexString.substring(to: 7)
+
+        self.button4.backgroundColor = UIColor(hexString: "#FFFF00")
+        NSLog("transformToPinYin: \(hexString)")
     }
     
     @IBAction func button2Clicked(_ sender: Any?) {
