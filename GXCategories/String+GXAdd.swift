@@ -225,14 +225,28 @@ public extension String {
         let mutableString = NSMutableString(string: self)
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
         CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
-        var string = String(mutableString)
-        string = string.replacingOccurrences(of: " ", with: "")
+        let string = String(mutableString)
         if isUppercase {
             return string.uppercased()
         }
         else {
             return string
         }
+    }
+    
+    /// 字符串转拼音
+    /// - Parameter isUppercase: 是否大写
+    /// - Returns: 转换后的拼音字符串
+    func transformToPinYinInitial(isUppercase: Bool = false) -> String {
+        let mutableString = NSMutableString()
+        for i in 0..<self.count {
+            let subStr = self[i]
+            let pinyin = subStr.transformToPinYin(isUppercase: isUppercase)
+            if pinyin.count > 0 {
+                mutableString.append(pinyin[0])
+            }
+        }
+        return mutableString as String
     }
 
 }

@@ -33,8 +33,8 @@ class ViewController: UIViewController {
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
         NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
         
-        let string = "际化"
-        var pinying = string.transformToPinYin(isUppercase: true)
+        let string = "FFFFFF"
+        var pinying = string.transformToPinYinInitial(isUppercase: true)
         if pinying.count > 6 {
             pinying = pinying.substring(to: 6)
         }
@@ -46,8 +46,11 @@ class ViewController: UIViewController {
         var hexString = String(format: "#%X", pinying)
         hexString = hexString.substring(to: 7)
 
-        self.button4.backgroundColor = UIColor(hexString: "#FFFF00")
-        NSLog("transformToPinYin: \(hexString)")
+        self.button4.backgroundColor = UIColor(hexString: hexString)
+        NSLog("transformToPinYin: \(pinying) --- \(hexString)")
+        let asdasd = " ".cString(using: .ascii)
+        NSLog("transformToPinYin: %d", asdasd![0])
+
     }
     
     @IBAction func button2Clicked(_ sender: Any?) {
