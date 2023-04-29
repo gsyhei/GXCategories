@@ -57,7 +57,7 @@ public class GXBundle: Bundle {
 public extension Bundle {
     
     /// 需要默认加载（在didFinishLaunchingWithOptions中加入）
-    class func gx_load() {
+    class func gx_loadLanguage() {
         object_setClass(Bundle.main, GXBundle.self)
     }
     
