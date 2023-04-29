@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        Bundle.gx_load()
+        Bundle.gx_loadLanguage()
         NSLog("%@当前国际化：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
         
         return true
