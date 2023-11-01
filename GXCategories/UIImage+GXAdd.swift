@@ -76,7 +76,33 @@ public extension UIImage {
         }
         self.init(gradientColors: gradientColors, locations: locations, start: start, end: end, size: size)
     }
-    
+
+    /// 设置动态图片（还是建议尽量在Assets.xcassets配置，bundle中必须使用此方法设置）
+    /// - Parameters:
+    ///   - light: 亮色图
+    ///   - drak: 深色图
+    /// - Returns: 当前模式图片
+    class func dynamicImage(light: UIImage?, drak: UIImage?) -> UIImage? {
+        if #available(iOS 13.0, *) {
+            let darkTraitCollection = UITraitCollection.init(userInterfaceStyle: .dark)
+            let lightTraitCollection = UITraitCollection.init(userInterfaceStyle: .light)
+            let darkScaledTraitCollection = UITraitCollection.init(traitsFrom:[UITraitCollection.current, darkTraitCollection])
+
+            var lightImage: UIImage? = nil, darkImage: UIImage? = nil
+            if let lightConfig = light?.configuration?.withTraitCollection(lightTraitCollection) {
+                lightImage = light?.withConfiguration(lightConfig)
+            }
+            if let darkConfig = drak?.configuration?.withTraitCollection(darkTraitCollection) {
+                darkImage = drak?.withConfiguration(darkConfig)
+            }
+            if let letDarkImage = darkImage {
+                lightImage?.imageAsset?.register(letDarkImage, with: darkScaledTraitCollection)
+            }
+            return lightImage
+        }
+        return light
+    }
+
     // MARK: - 图片调整大小
 
     func imageByResize(to size: CGSize, drawBlock: ((CGContext) -> Void)) -> UIImage? {

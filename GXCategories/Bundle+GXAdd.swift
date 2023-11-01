@@ -25,7 +25,7 @@ public class GXBundle: Bundle {
         return nil
     }
     
-    class var userLanguage: String? {
+    public class var userLanguage: String? {
         set {
             guard let value = newValue, value.count > 0 else {
                 self.resetSystemLanguage()
@@ -40,7 +40,7 @@ public class GXBundle: Bundle {
         }
     }
     
-    class func resetSystemLanguage() {
+    public class func resetSystemLanguage() {
         UserDefaults.standard.removeObject(forKey: GXUserLanguageKey)
         UserDefaults.standard.setValue(nil, forKey: AppleLanguages)
         UserDefaults.standard.synchronize()
