@@ -14,14 +14,14 @@ public extension UINavigationController {
     /// - Parameters:
     ///   - vcType: 目标vcType
     ///   - animated: 是否动画
-    func popToViewController(vcType: UIViewController.Type, animated: Bool) {
-        guard self.navigationController != nil else { return }
-        for vc in self.navigationController!.viewControllers {
+    @discardableResult
+    func popToViewController(vcType: UIViewController.Type, animated: Bool) -> [UIViewController]? {
+        for vc in self.viewControllers {
             if (vc.isMember(of: vcType)) {
-                self.navigationController?.popToViewController(vc, animated: animated)
-                return
+                return self.popToViewController(vc, animated: animated)
             }
         }
+        return nil
     }
     
     /// push到目标vc，视图控制器堆栈移除当前

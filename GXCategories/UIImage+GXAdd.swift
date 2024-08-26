@@ -152,21 +152,31 @@ public extension UIImage {
     // MARK: - 图片调整尺寸+压缩大小
     
     func dataForCompression(to size: CGSize, resizeByte byte: UInt64, isDichotomy: Bool = true) -> Data? {
-        let scaleImage = self.imageByResize(to: size, mode: .aspectFill)
+        var toSize = size
+        let scale = self.size.width / self.size.height
+        if size.width < self.size.width {
+            toSize = CGSize(width: size.width, height: size.width / scale)
+        }
+        else {
+            toSize = CGSize(width: size.height * scale, height: size.height)
+        }
+        var scaleImage = self.imageByResize(to: toSize, mode: .aspectFill)
+        if scaleImage == nil { scaleImage = self }
+        
         var quality: CGFloat = 1.0
         guard byte > 0 else { return scaleImage?.jpegData(compressionQuality: quality) }
         var imageData = scaleImage?.jpegData(compressionQuality: quality)
+        guard imageData != nil else { return nil }
+        
         if isDichotomy {
-            guard imageData != nil else { return nil }
             var max: CGFloat = 1.0, min: CGFloat = 0.0
             for _ in 0..<5 {
                 quality = (max + min) / 2
-                imageData = scaleImage?.jpegData(compressionQuality: quality)
-                guard imageData != nil else { return nil }
-                if imageData!.count < Int(CGFloat(byte) * 0.9) {
+                guard let newData = scaleImage?.jpegData(compressionQuality: quality) else { return imageData }
+                if newData.count < Int(CGFloat(byte) * 0.9) {
                     min = quality
                 }
-                else if imageData!.count > byte {
+                else if newData.count > byte {
                     max = quality
                 }
                 else {

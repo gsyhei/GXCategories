@@ -147,6 +147,7 @@ public extension Date {
     }
     
     static func date(dateString: String, format: String, locale: Locale = Locale.current, timeZone: TimeZone = TimeZone.current) -> Date? {
+        guard dateString.count > 0 else { return nil }
         Date.gx_dateFormatter.dateFormat = format
         Date.gx_dateFormatter.locale = locale
         Date.gx_dateFormatter.timeZone = timeZone
@@ -154,6 +155,7 @@ public extension Date {
     }
     
     static func dateWithISOFormat(dateString: String, timeZone: TimeZone = TimeZone.current) -> Date? {
+        guard dateString.count > 0 else { return nil }
         Date.gx_dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         Date.gx_dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         Date.gx_dateFormatter.timeZone = timeZone

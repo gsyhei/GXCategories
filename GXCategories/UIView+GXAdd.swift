@@ -179,6 +179,25 @@ public extension UIView {
         return nil
     }
     
+    func viewForSuperview<T: UIView>() -> T? {
+        for subview in self.subviews.reversed() {
+            if let subview = subview as? T {
+                return subview
+            }
+        }
+        return nil
+    }
+    
+    func viewsForSuperview<T: UIView>() -> [T] {
+        var getViews: [T] = []
+        for subview in self.subviews.reversed() {
+            if let subview = subview as? T {
+                getViews.append(subview)
+            }
+        }
+        return getViews
+    }
+    
     func removeAllSubviews() {
         self.subviews.forEach { (subview) in
             subview.removeFromSuperview()

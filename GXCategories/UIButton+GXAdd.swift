@@ -21,10 +21,10 @@ public extension UIButton {
         switch model {
         case .left:
             if self.contentHorizontalAlignment == .left {
-                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: spacing, bottom: 0, right: 0)
+                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: spacing, bottom: 0, right: -spacing)
             }
             else if self.contentHorizontalAlignment == .right {
-                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: spacing)
+                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -spacing, bottom: 0, right: spacing)
             }
             else {
                 let spacing_half = 0.5 * spacing;
@@ -34,12 +34,12 @@ public extension UIButton {
         case .right:
             let titleWidth = self.titleLabel?.frame.size.width ?? 0
             if self.contentHorizontalAlignment == .left {
-                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth + spacing, bottom: 0, right: 0)
-                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -imageSize.width, bottom: 0, right: 0)
+                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth + spacing, bottom: 0, right: -(titleWidth + spacing))
+                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -imageSize.width, bottom: 0, right: imageSize.width)
             }
             else if self.contentHorizontalAlignment == .right {
-                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: -titleWidth)
-                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: imageSize.width + spacing)
+                self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
+                self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: -(imageSize.width + spacing), bottom: 0, right: imageSize.width + spacing)
             }
             else {
                 let imageOffset = titleWidth + 0.5 * spacing
