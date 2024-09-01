@@ -60,6 +60,10 @@ public extension UIApplication {
         return false
     }
     
+    class func appDisplayName() -> String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+    }
+    
     class func appBundleName() -> String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
     }
