@@ -1,6 +1,6 @@
 //
 //  Byte+GXAdd.swift
-//  Byte/UInt8字节操作扩展
+//  GXCategoriesSample
 //
 //  Created by Gin on 2025/1/27.
 //
