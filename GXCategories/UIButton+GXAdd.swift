@@ -71,8 +71,6 @@ public extension UIButton {
     }
 }
 
-private var GXBtnHitUIEdgeInsetsKey = 10
-@MainActor
 public extension UIButton {
     
     /// 位置枚举
@@ -86,10 +84,15 @@ public extension UIButton {
     /// 点击区域UIEdgeInsets
     var hitEdgeInsets: UIEdgeInsets? {
         get {
-            return objc_getAssociatedObject(self, &GXBtnHitUIEdgeInsetsKey) as? UIEdgeInsets
+            if let key = UnsafeRawPointer(bitPattern: "hitEdgeInsets".hashValue) {
+                return objc_getAssociatedObject(self, key) as? UIEdgeInsets
+            }
+            return nil
         }
         set {
-            objc_setAssociatedObject(self, &GXBtnHitUIEdgeInsetsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            if let key = UnsafeRawPointer(bitPattern: "hitEdgeInsets".hashValue) {
+                objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
         }
     }
     
