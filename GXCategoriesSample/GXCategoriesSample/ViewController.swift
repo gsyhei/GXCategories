@@ -32,8 +32,6 @@ class ViewController: UIViewController {
         
         
         self.button4.hitEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        let hit = "hitEdgeInsets".hashValue
-        
         NSLog("hitEdgeInsets: \(String(describing: self.button4.hitEdgeInsets))")
     }
     
@@ -55,8 +53,10 @@ class ViewController: UIViewController {
         var hexString = String(format: "#%X", pinying)
         hexString = hexString.substring(to: 7)
 
+        let pinyingAll = string.transformToPinYin(isUppercase: true)
+
         self.button4.backgroundColor = UIColor(hexString: hexString)
-        NSLog("transformToPinYin: \(pinying) --- \(hexString)")
+        NSLog("transformToPinYin: \(pinying)/---\(pinyingAll) --- \(hexString)")
         let asdasd = " ".cString(using: .ascii)
         NSLog("transformToPinYin: %d", asdasd![0])
 
