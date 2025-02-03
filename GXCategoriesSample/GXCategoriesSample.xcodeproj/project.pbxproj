@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		333A9FBA2D51138B00E14406 /* Byte+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333A9FB92D51138B00E14406 /* Byte+GXAdd.swift */; };
 		33A5AEFD255EEC4C00AEAF87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AEFC255EEC4C00AEAF87 /* AppDelegate.swift */; };
 		33A5AEFF255EEC4C00AEAF87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AEFE255EEC4C00AEAF87 /* SceneDelegate.swift */; };
 		33A5AF01255EEC4C00AEAF87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF00255EEC4C00AEAF87 /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		333A9FB92D51138B00E14406 /* Byte+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Byte+GXAdd.swift"; sourceTree = "<group>"; };
 		33A5AEF9255EEC4C00AEAF87 /* GXCategoriesSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GXCategoriesSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33A5AEFC255EEC4C00AEAF87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33A5AEFE255EEC4C00AEAF87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */,
 				9673BB3D27FFC84400133372 /* DispatchQueue+GXAdd.swift */,
 				9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */,
+				333A9FB92D51138B00E14406 /* Byte+GXAdd.swift */,
 			);
 			name = GXCategories;
 			path = ../../GXCategories;
@@ -345,6 +348,7 @@
 				33A5AF4F255EEC5C00AEAF87 /* UIColor+GXAdd.swift in Sources */,
 				33A5AF4A255EEC5C00AEAF87 /* UIView+GXAdd.swift in Sources */,
 				968CCB5828B4E447006FC283 /* UINavigationController+GXAdd.swift in Sources */,
+				333A9FBA2D51138B00E14406 /* Byte+GXAdd.swift in Sources */,
 				33A5AF4D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift in Sources */,
 				33A5AF4C255EEC5C00AEAF87 /* NSObject+GXAdd.swift in Sources */,
 				33A5AF48255EEC5C00AEAF87 /* UIDevice+GXAdd.swift in Sources */,
@@ -539,7 +543,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 456X827366;
+				DEVELOPMENT_TEAM = L54KZN9KMH;
 				INFOPLIST_FILE = GXCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -558,8 +562,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L54KZN9KMH;
 				INFOPLIST_FILE = GXCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
