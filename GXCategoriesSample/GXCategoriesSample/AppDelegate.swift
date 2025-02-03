@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         Bundle.gx_loadLanguage()
-        NSLog("%@当前国际化：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
+        NSLog("%@当前国际化：%@", GXBundle.currentLanguage ?? "", GXLSTR("按钮"))
         
         // 进制转换
         let num: UInt8 = 111
