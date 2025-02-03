@@ -29,6 +29,12 @@ class ViewController: UIViewController {
 
         self.button4.setImage(image, for: .normal)
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
+        
+        
+        self.button4.hitEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        let hit = "hitEdgeInsets".hashValue
+        
+        NSLog("hitEdgeInsets: \(String(describing: self.button4.hitEdgeInsets))")
     }
     
     @IBAction func button1Clicked(_ sender: Any?) {
@@ -36,7 +42,7 @@ class ViewController: UIViewController {
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
         NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
         
-        let string = "FFFFFF"
+        let string = "一个"
         var pinying = string.transformToPinYinInitial(isUppercase: true)
         if pinying.count > 6 {
             pinying = pinying.substring(to: 6)
