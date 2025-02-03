@@ -11,7 +11,7 @@ public func GXLSTR(_ key: String, tableName: String? = nil, bundle: Bundle = Bun
     return NSLocalizedString(key, tableName: tableName, bundle: bundle, value: value, comment: comment)
 }
 
-public class GXBundle: Bundle {
+public class GXBundle: Bundle, @unchecked Sendable {
     static let GXUserLanguageKey = "GXUserLanguageKey"
     static let AppleLanguages = "AppleLanguages"
     
