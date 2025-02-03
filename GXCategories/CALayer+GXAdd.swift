@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 public extension CALayer {
     
     var left:CGFloat {

@@ -71,7 +71,7 @@ public extension UIButton {
     }
 }
 
-private var GXBtnHitUIEdgeInsetsKey = 10
+var GXBtnHitUIEdgeInsetsKey = 10
 public extension UIButton {
     
     /// 位置枚举
