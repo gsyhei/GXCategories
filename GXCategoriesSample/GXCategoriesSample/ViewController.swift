@@ -41,22 +41,25 @@ class ViewController: UIViewController {
         NSLog("当前国际化%@：%@", GXBundle.userLanguage ?? "", GXLSTR("按钮"))
         
         let string = "一个"
-        var pinying = string.transformToPinYinInitial(isUppercase: true)
-        if pinying.count > 6 {
-            pinying = pinying.substring(to: 6)
+        let pinying = string.transformToPinYinInitial(isUppercase: true)
+        
+        // 自定义拼音转变为颜色
+        var yansePy = pinying
+        if yansePy.count > 6 {
+            yansePy = pinying.substring(to: 6)
         }
         else {
             for _ in pinying.count..<6 {
-                pinying += "0"
+                yansePy += "0"
             }
         }
-        var hexString = String(format: "#%X", pinying)
+        var hexString = String(format: "#%X", yansePy)
         hexString = hexString.substring(to: 7)
 
         let pinyingAll = string.transformToPinYin(isUppercase: true)
 
         self.button4.backgroundColor = UIColor(hexString: hexString)
-        NSLog("transformToPinYin: \(pinying)/---\(pinyingAll) --- \(hexString)")
+        NSLog("transformToPinYin: \(pinying)---\(pinyingAll) --- \(hexString)")
         let asdasd = " ".cString(using: .ascii)
         NSLog("transformToPinYin: %d", asdasd![0])
 
