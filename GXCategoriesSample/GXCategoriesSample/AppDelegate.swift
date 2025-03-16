@@ -26,8 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let bit5 = num.gx_readBit(index: 5)
         let bit6 = num.gx_readBit(index: 6)
         let bit7 = num.gx_readBit(index: 7)
-        let readNumber = num.gx_numberVal(range: NSRange(location: 1, length: 4))
-        NSLog("num: \(num.gx_bString), readNumber: \(readNumber)")
+        let readNumber = num.gx_readBits(range: NSRange(location: 1, length: 5))
+        
+        let readBool = num.gx_readBit(index: 4)
+        let setInt8 = num.gx_writeBit(index: 4, to: true)
+        let set2Int8 = setInt8.gx_writeBit(index: 0, to: false)
+        
+        let num00: UInt8 = 0b11111111
+        let setNum00Int8 = num00.gx_writeBits(range: NSRange(location: 1, length: 6), to: 0b0)
+
+
+        let numstr = String(num, radix: 2)
+        NSLog("num: \(numstr), readNumber: \(readNumber), \(readBool), \(String(set2Int8, radix: 2)), \(String(setNum00Int8, radix: 2))")
         
         return true
     }

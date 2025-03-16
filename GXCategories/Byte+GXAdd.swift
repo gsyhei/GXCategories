@@ -66,7 +66,7 @@ public extension UInt8 {
     }
     /// 给对应位置range上的bit设置指定的值，返回修改后的新值
     func gx_writeBits(range: NSRange, to value: UInt8) -> UInt8 {
-        // 将 NSRange 转换为 UInt
+        // 将 NSRange 转换为 Int
         let location = range.location
         let length = range.length
         // 确保 range 有效
@@ -79,14 +79,15 @@ public extension UInt8 {
             fatalError("Value exceeds the maximum for the specified bit range")
         }
         // 生成清除掩码
-        let clearMask = ~((UInt8(1) << length) - 1) << location
+        let clearMask = ((UInt8(1) << length) - 1) << location
         // 清除目标 bit 范围
-        var result = self & clearMask
+        var result = self & ~clearMask
         // 设置目标 bit 范围
-        result |= value << location
+        result |= (value << location)
         
         return result
     }
+    
 }
 
 // MARK: Data 与 [UInt8]、NSData是等价的
