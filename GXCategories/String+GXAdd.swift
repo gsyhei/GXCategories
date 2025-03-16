@@ -149,7 +149,7 @@ public extension String {
     /// - Returns: 字符串显示的size
     func size(size: CGSize, font: UIFont) -> CGSize {
         let attributes = [NSAttributedString.Key.font: font]
-        let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        let rect = self.boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
         return rect.size
     }
     
