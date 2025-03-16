@@ -25,58 +25,67 @@ public extension UInt8 {
         return str
     }
     /// 读取对应位置上的数字（结果是0或者1）
-    func gx_readBit(index: Int) -> UInt8 {
-        if index < 0 || index > 7 {
-            return self
+    func gx_readBit(index: UInt8) -> UInt8 {
+        // 确保 position 在有效范围内
+        guard index < UInt8.bitWidth else {
+            fatalError("Position \(index) is out of range for UInt8")
         }
-        // 10010000 读取 第4位
-        // 10010000 -> 10010000 & 00010000 -> 00010000 -> 1
-        // 10010000 读取 第5位
-        // 10010000 -> 10010000 & 00001000 -> 00000000 -> 0
-        let moveStep = UInt8(7-index)
-        // 只保留需要读取的位置上的值
-        let val = (self & (0x1 << moveStep))
-        // 将读取的位置上的值变成0或1
-        let result = val >> moveStep
-        return result
-    }
-    /// 给对应位置上设置指定的值（只能设置0或者1），返回修改后的新值
-    func gx_writeBit(index: Int, value: Int) -> UInt8 {
-        // 一个字节只有8位
-        if index < 0 || index > 7 {
-            return self
-        }
-        // 字节里设置的值只能是0或者1
-        if value != 1, value != 0 {
-            return self
-        }
-        // 10010001 设置 第3位 为0
-        // 10010001 -> 10010001 & 11101111 -> 10000001 | 0000000 -> 10000001
-        // 10010001 设置 第3位 为1
-        // 10010001 -> 10010001 & 11101111 -> 10000001 | 0001000 -> 10010001
-        // 10010001 设置 第4位 为1
-        // 10010001 -> 10010001 & 11110111 -> 10010001 | 0000100 -> 10011001
-        let moveStep = UInt8(7-index)
-        // 读取到对应的位的设置为0内容
-        let otherVal = (self & ~(0x1 << moveStep))
-        // 要设置的值
-        let setVal = UInt8(value) << moveStep
-        // 将值合起来
-        let result = otherVal | setVal
-        return result
+        // 读取第 N 位的值
+        return (self >> index) & 1
     }
     /// 按bit位得到数字
-    func gx_numberVal(range: NSRange) -> Int {
-        var binaryString: String = ""
-        let start = range.location, end = range.location + range.length
-        for i in start..<end {
-            let bit: UInt8 = self.gx_readBit(index: i)
-            binaryString += "\(bit)"
+    func gx_readBits(range: NSRange) -> UInt8 {
+        // 将 NSRange 转换为 UInt
+        let location = range.location
+        let length = range.length
+        // 确保 range 有效
+        guard location < UInt8.bitWidth, length > 0, location + length <= UInt8.bitWidth else {
+            fatalError("Invalid bit range")
         }
-        guard let decimalNumber = Int(binaryString, radix: 2) else {
-            return 0
+        // 生成掩码
+        let mask = UInt8(1) << length - 1
+        // 提取 bit 值
+        let bits = (self >> location) & mask
+        
+        return bits
+    }
+    /// 给对应位置上设置指定的值（只能设置0或者1），返回修改后的新值
+    func gx_writeBit(index: UInt8, to value: Bool) -> UInt8 {
+        // 确保 position 在有效范围内
+        guard index < UInt8.bitWidth else {
+            fatalError("Position \(index) is out of range for UInt8")
         }
-        return decimalNumber
+        if value {
+            // 设置第 N 位为 1
+            return self | (1 << index)
+        }
+        else {
+            // 设置第 N 位为 0
+            return self & ~(1 << index)
+        }
+    }
+    /// 给对应位置range上的bit设置指定的值，返回修改后的新值
+    func gx_writeBits(range: NSRange, to value: UInt8) -> UInt8 {
+        // 将 NSRange 转换为 UInt
+        let location = range.location
+        let length = range.length
+        // 确保 range 有效
+        guard location < UInt8.bitWidth, length > 0, location + length <= UInt8.bitWidth else {
+            fatalError("Invalid bit range")
+        }
+        // 确保 value 在有效范围内
+        let maxValue = (1 << length) - 1
+        guard value <= maxValue else {
+            fatalError("Value exceeds the maximum for the specified bit range")
+        }
+        // 生成清除掩码
+        let clearMask = ~((UInt8(1) << length) - 1) << location
+        // 清除目标 bit 范围
+        var result = self & clearMask
+        // 设置目标 bit 范围
+        result |= value << location
+        
+        return result
     }
 }
 
@@ -98,21 +107,7 @@ public extension Data {
     func gx_numberVal<T: FixedWidthInteger>() -> T {
         // 当前类型需要几个字节来放
         let size = MemoryLayout<T>.size
-        // 如果只需要一个字节，说明就是UInt8
-        var val: T = 0
-        var valData = self
-        let addCount = size - self.count
-        if addCount > 0 {
-            // 说明长度不够，需要在前面补0
-            let addData = ([UInt8](repeating: 0, count: addCount)).gx_data
-            valData = addData + valData
-        } else if addCount < 0 {
-            // 长度超过所需的长度，只使用后面的内容
-            valData = self.gx_subData(range: NSRange(location: self.count-size, length: size))
-        }
-        valData.gx_nsData.getBytes(&val, length: size)
-        let result = T(bigEndian: val)
-        return result
+        return subdata(in: 0..<size).withUnsafeBytes { $0.load(as: T.self) }
     }
     var gx_strVal: String? {
         return String(data: self, encoding: .utf8)
