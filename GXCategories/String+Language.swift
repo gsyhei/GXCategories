@@ -5,6 +5,8 @@
 //  Created by Gin on 2025/5/28.
 //
 
+import Foundation
+
 public class GXLanguageGobal: @unchecked Sendable {
     public static let shared = GXLanguageGobal()
     
@@ -30,11 +32,11 @@ public class GXLanguageGobal: @unchecked Sendable {
 }
 
 public extension String {
-    public var localized: String {
+    var localized: String {
         let bundle = GXLanguageGobal.shared.currentBundle()
         return NSLocalizedString(self, bundle: bundle, comment: "")
     }
-    public static func localized(_ key: String) -> String {
+    static func localized(_ key: String) -> String {
         let bundle = GXLanguageGobal.shared.currentBundle()
         return NSLocalizedString(key, bundle: bundle, comment: "")
     }
