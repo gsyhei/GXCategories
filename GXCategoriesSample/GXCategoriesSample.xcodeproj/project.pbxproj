@@ -32,6 +32,7 @@
 		33A5AF4D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */; };
 		33A5AF4E255EEC5C00AEAF87 /* Data+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3E255EEC5C00AEAF87 /* Data+GXAdd.swift */; };
 		33A5AF4F255EEC5C00AEAF87 /* UIColor+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A5AF3F255EEC5C00AEAF87 /* UIColor+GXAdd.swift */; };
+		33EA4DB12DE6EC7F0056154E /* NSAttributedString+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EA4DB02DE6EC7F0056154E /* NSAttributedString+GXAdd.swift */; };
 		9673BB3C27FFC7E700133372 /* Bundle+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */; };
 		9673BB4127FFDC9200133372 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9673BB4327FFDC9200133372 /* Localizable.strings */; };
 		968CCB5828B4E447006FC283 /* UINavigationController+GXAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */; };
@@ -86,6 +87,7 @@
 		33A5AF3D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GXAdd.swift"; sourceTree = "<group>"; };
 		33A5AF3E255EEC5C00AEAF87 /* Data+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+GXAdd.swift"; sourceTree = "<group>"; };
 		33A5AF3F255EEC5C00AEAF87 /* UIColor+GXAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+GXAdd.swift"; sourceTree = "<group>"; };
+		33EA4DB02DE6EC7F0056154E /* NSAttributedString+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+GXAdd.swift"; sourceTree = "<group>"; };
 		9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+GXAdd.swift"; sourceTree = "<group>"; };
 		9673BB4227FFDC9200133372 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9673BB4427FFDCA800133372 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				33A5AF33255EEC5C00AEAF87 /* UITableView+GXAdd.swift */,
 				33A5AF31255EEC5C00AEAF87 /* UIViewController+GXAdd.swift */,
 				968CCB5728B4E447006FC283 /* UINavigationController+GXAdd.swift */,
+				33EA4DB02DE6EC7F0056154E /* NSAttributedString+GXAdd.swift */,
 				9673BB3B27FFC7E700133372 /* Bundle+GXAdd.swift */,
 				333A9FB92D51138B00E14406 /* Byte+GXAdd.swift */,
 			);
@@ -348,6 +351,7 @@
 				33A5AF4D255EEC5C00AEAF87 /* UIScrollView+GXAdd.swift in Sources */,
 				33A5AF4C255EEC5C00AEAF87 /* NSObject+GXAdd.swift in Sources */,
 				33A5AF48255EEC5C00AEAF87 /* UIDevice+GXAdd.swift in Sources */,
+				33EA4DB12DE6EC7F0056154E /* NSAttributedString+GXAdd.swift in Sources */,
 				33A5AF47255EEC5C00AEAF87 /* UIApplication+GXAdd.swift in Sources */,
 				33A5AEFF255EEC4C00AEAF87 /* SceneDelegate.swift in Sources */,
 				33A5AF4B255EEC5C00AEAF87 /* CALayer+GXAdd.swift in Sources */,
