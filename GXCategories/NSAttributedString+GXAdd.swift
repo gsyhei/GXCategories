@@ -17,17 +17,13 @@ public extension NSAttributedString {
     }
 
     func height(width: CGFloat) -> CGFloat {
-        let rect = self.boundingRect(with: CGSize(width: width, height: CGFLOAT_MAX),
-                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                     context: nil)
-        return rect.height
+        let size = self.size(maxSize: CGSize(width: width, height: CGFLOAT_MAX))
+        return size.height
     }
     
     func width() -> CGFloat {
-        let rect = self.boundingRect(with: CGSize(width: CGFLOAT_MAX, height: CGFLOAT_MAX),
-                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                     context: nil)
-        return rect.width
+        let size = self.size(maxSize: CGSize(width: CGFLOAT_MAX, height: CGFLOAT_MAX))
+        return size.width
     }
 
 }
