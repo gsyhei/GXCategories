@@ -12,10 +12,9 @@ public func GXLSTR(_ key: String, tableName: String? = nil, bundle: Bundle = Bun
 }
 
 public class GXBundle: Bundle, @unchecked Sendable {
-    static let GXUserLanguageKey = "GXUserLanguageKey"
     static let AppleLanguages = "AppleLanguages"
     
-    private class var gx_main: Bundle? {
+    public class var gx_main: Bundle? {
         if let language = Bundle.currentLanguage, language.count > 0 {
             let path = Bundle.main.path(forResource: Bundle.currentLanguage, ofType: "lproj")
             if let thePath = path {
@@ -31,17 +30,15 @@ public class GXBundle: Bundle, @unchecked Sendable {
                 self.resetSystemLanguage()
                 return
             }
-            UserDefaults.standard.setValue(value, forKey: GXUserLanguageKey)
             UserDefaults.standard.setValue([value], forKey: AppleLanguages)
             UserDefaults.standard.synchronize()
         }
         get {
-            return UserDefaults.standard.string(forKey: GXUserLanguageKey)
+            return NSLocale.preferredLanguages.first
         }
     }
     
     public class func resetSystemLanguage() {
-        UserDefaults.standard.removeObject(forKey: GXUserLanguageKey)
         UserDefaults.standard.setValue(nil, forKey: AppleLanguages)
         UserDefaults.standard.synchronize()
     }

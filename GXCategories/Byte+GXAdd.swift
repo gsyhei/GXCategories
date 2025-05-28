@@ -10,7 +10,7 @@ import UIKit
 // MARK: UInt8等于Byte，一个字节8位
 public extension UInt8 {
     var gx_hexString: String {
-        let str = String(format:"0x%02x", self)
+        let str = String(format:"0x%02X", self)
         return str
     }
     var gx_bString: String {
