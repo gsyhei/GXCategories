@@ -39,12 +39,13 @@ public extension String {
             return String(self[startIndex..<endIndex])
         }
     }
-    /// 截取 从头到i位置
-    func substring(to: Int) -> String{
+    
+    /// 截取 从头到i位置.prefix(maxLength: Int)
+    func substring(to: Int) -> String {
         return self[0..<to]
     }
     
-    /// 截取 从i到尾部
+    /// 截取 从i到尾部.suffix(maxLength: Int)
     func substring(from: Int) -> String {
         return self[from..<self.count]
     }
