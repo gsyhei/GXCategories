@@ -119,6 +119,16 @@ public extension Data {
     var gx_bString: String {
         self.map({ $0.gx_bString }).joined(separator: " ")
     }
+    var reversedHex: String {
+        var result = "0x"
+        for byte in self.bytes.reversed() {
+            result = result.appendingFormat("%02X", byte)
+        }
+        return result
+    }
+    var macAddress: String {
+        return self.map { String(format: "%02X", $0) }.joined(separator: ":")
+    }
 }
 
 // MARK: - 字节数组（Element == UInt8）
