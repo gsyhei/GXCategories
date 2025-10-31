@@ -74,10 +74,10 @@ public extension UIColor {
         return UIColor(r: UInt32(r), g: UInt32(g), b: UInt32(b), a: alpha)
     }
 
-    class func dynamicColor(light: UIColor, drak: UIColor) -> UIColor {
+    class func dynamicColor(light: UIColor, dark: UIColor) -> UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { collection in
-                return collection.userInterfaceStyle == .dark ? drak : light
+                return collection.userInterfaceStyle == .dark ? dark : light
             }
         }
         return light
