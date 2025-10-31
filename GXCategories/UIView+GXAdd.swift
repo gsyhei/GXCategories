@@ -161,11 +161,25 @@ public extension UIView {
     }
     
     func currentWindow() -> UIWindow? {
-        let window = UIApplication.shared.windows.first
-        guard window != nil else {
-            return UIApplication.shared.delegate?.window ?? nil
+        if #available(iOS 13.0, *) {
+            let scenes = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .filter { $0.activationState == .foregroundActive }
+            for scene in scenes {
+                if let keyWindow = scene.windows.first(where: { $0.isKeyWindow }) {
+                    return keyWindow
+                }
+                if let firstWindow = scene.windows.first { return firstWindow }
+            }
+            // 兜底：仍可回退到任意窗口
+            return UIApplication.shared.windows.first
+        } else {
+            let window = UIApplication.shared.windows.first
+            guard window != nil else {
+                return UIApplication.shared.delegate?.window ?? nil
+            }
+            return window
         }
-        return window
     }
     
     func viewController() -> UIViewController? {
@@ -230,11 +244,12 @@ public extension UIView {
     
     @available(iOS 7.0, *)
     func snapshotImage(afterScreenUpdates afterUpdates: Bool) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
-        self.drawHierarchy(in: self.bounds, afterScreenUpdates: afterUpdates)
-        let snapImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = self.isOpaque
+        let renderer = UIGraphicsImageRenderer(size: self.bounds.size, format: format)
+        let snapImage = renderer.image { _ in
+            self.drawHierarchy(in: self.bounds, afterScreenUpdates: afterUpdates)
+        }
         return snapImage
     }
     

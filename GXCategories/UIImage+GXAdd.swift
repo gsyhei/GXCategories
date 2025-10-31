@@ -15,14 +15,15 @@ public extension UIImage {
     ///   - color: 颜色
     ///   - size: 大小
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        UIGraphicsBeginImageContextWithOptions(size, true, 0)
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(color.cgColor)
-        context?.fill(CGRect(origin: .zero, size: size))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let cgImage = image?.cgImage else {return nil}
-        self.init(cgImage:cgImage)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { ctx in
+            ctx.cgContext.setFillColor(color.cgColor)
+            ctx.cgContext.fill(CGRect(origin: .zero, size: size))
+        }
+        guard let cgImage = image.cgImage else { return nil }
+        self.init(cgImage: cgImage)
     }
     
     /// 构建梯度图片
@@ -34,15 +35,17 @@ public extension UIImage {
     ///   - size: 大小
     convenience init?(gradientColors: [UIColor], locations: [CGFloat]? = nil, start startPoint: CGPoint, end endPoint: CGPoint, size:CGSize = CGSize(width: 10, height: 10))
     {
-        UIGraphicsBeginImageContextWithOptions(size, true, 0)
-        let context = UIGraphicsGetCurrentContext()
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let colors = gradientColors.map {(color: UIColor) -> AnyObject? in return color.cgColor as AnyObject?} as CFArray
-        let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: locations)
-        context?.drawLinearGradient(gradient!, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: 0))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let cgImage = image?.cgImage else {return nil}
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { ctx in
+            let context = ctx.cgContext
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let colors = gradientColors.map { (color: UIColor) -> AnyObject? in return color.cgColor as AnyObject? } as CFArray
+            let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: locations)
+            context.drawLinearGradient(gradient!, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue: 0))
+        }
+        guard let cgImage = image.cgImage else {return nil}
         self.init(cgImage:cgImage)
     }
     
@@ -106,32 +109,37 @@ public extension UIImage {
 
     func imageByResize(to size: CGSize, drawBlock: ((CGContext) -> Void)) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        drawBlock(context)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = false
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { ctx in
+            let context = ctx.cgContext
+            drawBlock(context)
+        }
         return image
     }
 
     func imageByResize(to size: CGSize) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
-        UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
-        self.draw(in: CGRect(origin: .zero, size: size))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = false
+        format.scale = self.scale
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
         return image
     }
 
     func imageByResize(to size: CGSize, mode: GXImageScaleMode) -> UIImage? {
         guard size.width > 0 && size.height > 0 else { return nil }
-        UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
-        self.gx_draw(in: CGRect(origin: .zero, size: size), mode: mode, clipsToBounds: false)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = false
+        format.scale = self.scale
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { _ in
+            self.gx_draw(in: CGRect(origin: .zero, size: size), mode: mode, clipsToBounds: false)
+        }
         return image
     }
     

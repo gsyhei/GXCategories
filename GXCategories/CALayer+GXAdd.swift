@@ -183,12 +183,12 @@ public extension CALayer {
     }
     
     func snapshotImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        self.render(in: context)
-        let snapImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = self.isOpaque
+        let renderer = UIGraphicsImageRenderer(size: self.bounds.size, format: format)
+        let snapImage = renderer.image { ctx in
+            self.render(in: ctx.cgContext)
+        }
         return snapImage
     }
     

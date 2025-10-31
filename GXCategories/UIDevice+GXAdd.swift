@@ -21,8 +21,12 @@ public extension UIDevice {
                 if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
                     if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
                         var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),nil, socklen_t(0), NI_NUMERICHOST) == 0) {
-                            if let address = String(validatingUTF8:hostname) {
+                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                            let address = hostname.withUnsafeBufferPointer { buffer -> String? in
+                                guard let base = buffer.baseAddress else { return nil }
+                                return String(cString: base)
+                            }
+                            if let address = address {
                                 addresses.append(address)
                             }
                         }
@@ -40,12 +44,7 @@ public extension UIDevice {
     }
     
     var isPad: Bool {
-        if #available(iOS 13.0, *) {
-            return self.userInterfaceIdiom == .pad
-        }
-        else {
-            return UI_USER_INTERFACE_IDIOM() == .pad
-        }
+        return self.userInterfaceIdiom == .pad
     }
     
     var isSimulator: Bool {

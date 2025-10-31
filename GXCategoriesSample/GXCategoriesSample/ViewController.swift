@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         self.button3.imageLocationAdjust(model: .right, spacing: 14.0)
         self.button4.imageLocationAdjust(model: .bottom, spacing: 14.0)
         
-        let image = UIImage.dynamicImage(light: UIImage(named: "cmp_l"), drak: UIImage(named: "cmp_d"))
+        let image = UIImage.dynamicImage(light: UIImage(named: "cmp_l"), dark: UIImage(named: "cmp_d"))
 
         self.button4.setImage(image, for: .normal)
         self.button4.setTitle(GXLSTR("按钮"), for: .normal)
