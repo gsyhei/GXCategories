@@ -9,14 +9,14 @@
 Pod::Spec.new do |s|
 
   s.name          = "GXCategories"
-  s.version       = "1.2.4"
+  s.version       = "1.2.5"
   s.swift_version = ["5.0", "6.0"]
   s.summary       = "Swift版的常用扩展/分类。"
   s.homepage      = "https://github.com/gsyhei/GXCategories"
   s.license       = { :type => "MIT", :file => "LICENSE" }
   s.author        = { "Gin" => "279694479@qq.com" }
   s.platform      = :ios, "13.0"
-  s.source        = { :git => "https://github.com/gsyhei/GXCategories.git", :tag => "1.2.4" }
+  s.source        = { :git => "https://github.com/gsyhei/GXCategories.git", :tag => "1.2.5" }
   s.requires_arc  = true
   s.source_files  = "GXCategories"
  #s.resources     = 'GXCategories/Resource/**/*'
